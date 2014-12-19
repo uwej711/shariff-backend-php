@@ -19,8 +19,8 @@
         }
     ],
     "require": {
-    	"php": ">=5.4.0",
-        "guzzlehttp/guzzle": "*",
+        "php": ">=5.3.3",
+        "guzzlehttp/guzzle": "3.x",
         "zendframework/zend-cache": "*",
         "zendframework/zend-config": "*",
         "zendframework/zend-json": "*"
