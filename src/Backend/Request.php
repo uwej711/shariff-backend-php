@@ -2,7 +2,7 @@
 
 namespace Heise\Shariff\Backend;
 
-use GuzzleHttp\Client;
+use Guzzle\Http\Client;
 
 abstract class Request
 {
@@ -19,13 +19,21 @@ abstract class Request
 
     protected function createRequest($url, $method = 'GET', $options = array())
     {
-        // $defaults = array('future' => true, 'debug' => true);
-        $defaults = array('future' => true);
+        // $defaults = array('future' => true);
+
+        $headers = null;
+        $body = null;
+
+        if (isset($options['json'])) {
+            $headers['Content-Type'] = 'application/json';
+            $body = json_encode($options['json']);
+        }
 
         $req = $this->client->createRequest(
             $method,
             $url,
-            array_merge($defaults, $options)
+            $headers,
+            $body
         );
 
         return $req;

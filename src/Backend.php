@@ -2,10 +2,9 @@
 
 namespace Heise\Shariff;
 
-use GuzzleHttp\Client;
+use Guzzle\Http\Client;
 use Heise\Shariff\Backend\BackendManager;
 use Heise\Shariff\Backend\ServiceFactory;
-use Zend\Cache\Storage\Adapter\Filesystem;
 use Zend\Cache\Storage\Adapter\FilesystemOptions;
 use Zend\Cache\Storage\ClearExpiredInterface;
 use Zend\Cache\StorageFactory;
@@ -18,11 +17,11 @@ class Backend
     public function __construct($config)
     {
         $domain = $config["domain"];
-        $clientOptions = [];
+        $clientOptions = array();
         if (isset($config['client'])) {
             $clientOptions = $config['client'];
         }
-        $client = new Client(['defaults' => $clientOptions]);
+        $client = new Client(array('defaults' => $clientOptions));
         $baseCacheKey = md5(json_encode($config));
 
         if (!isset($config['cache']['adapter'])) {
@@ -30,15 +29,15 @@ class Backend
         }
 
         if (!isset($config['cache']['adapterOptions'])) {
-            $config['cache']['adapterOptions'] = [];
+            $config['cache']['adapterOptions'] = array();
         }
 
-        $cache = StorageFactory::factory([
-            'adapter' => [
+        $cache = StorageFactory::factory(array(
+            'adapter' => array(
                 'name' => $config['cache']['adapter'],
                 'options' => $config['cache']['adapterOptions']
-            ]
-        ]);
+            )
+        ));
 
         $options = $cache->getOptions();
         $options->setNamespace('Shariff');
@@ -73,7 +72,6 @@ class Backend
             $serviceFactory->getServicesByName($config['services'], $config)
         );
     }
-
 
     public function get($url)
     {
