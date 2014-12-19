@@ -2,8 +2,7 @@
 
 namespace Heise\Shariff;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Pool;
+use Guzzle\Http\Client;
 use Zend\Cache\Storage\Adapter\Filesystem;
 
 class Backend
@@ -83,7 +82,7 @@ class Backend
             $this->services
         );
 
-        $results = Pool::batch($this->client, $requests);
+        $results = $this->client->send($requests);
 
         $counts = array();
         $i = 0;
