@@ -2,8 +2,7 @@
 
 namespace Heise\Shariff\Backend;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Pool;
+use Guzzle\Http\Client;
 use Zend\Cache\Storage\StorageInterface;
 
 class BackendManager
@@ -68,7 +67,7 @@ class BackendManager
             $this->services
         );
 
-        $results = Pool::batch($this->client, $requests);
+        $results = $this->client->send($requests);
 
         $counts = array();
         $i = 0;
