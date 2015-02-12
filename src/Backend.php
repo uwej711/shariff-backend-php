@@ -21,7 +21,7 @@ class Backend
         if (isset($config['client'])) {
             $clientOptions = $config['client'];
         }
-        $client = new Client(array('defaults' => $clientOptions));
+        $client = new Client('', array('request.options' => $clientOptions));
         $baseCacheKey = md5(json_encode($config));
 
         if (!isset($config['cache']['adapter'])) {
